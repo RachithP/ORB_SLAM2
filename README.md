@@ -235,7 +235,7 @@ For an RGB-D input from topics `/camera/rgb/image_raw` and `/camera/depth_regist
   ```
 
 # 8. Processing your own sequences
-You will need to create a settings file with the calibration of your camera. See the settings file provided for the TUM and KITTI datasets for monocular, stereo and RGB-D cameras. We use the calibration model of OpenCV. See the examples to learn how to create a program that makes use of the ORB-SLAM2 library and how to pass images to the SLAM system. Stereo input must be synchronized and rectified. RGB-D input must be synchronized and depth registered.
+You will need to create a settings file with the calibration of your camera. See the settings file provided for the TUM and KITTI datasets for monocular, stereo and RGB-D cameras. We use the calibration model of OpenCV. See the examples to learn how to create a program that makes use of the ORB-SLAM2 library and how to pass images to the SLAM system. Stereo input must be synchronized and rectified. RGB-D input must be synchronized and depth registered. We suggest using Kalibr (https://github.com/ethz-asl/kalibr) for camera calibration, look for less than 1 pixel of reprojection error.
 
 # 9. SLAM and Localization Modes
 You can change between the *SLAM* and *Localization mode* using the GUI of the map viewer.
@@ -281,3 +281,8 @@ This feature is tested with boost 1.64 and it works fine mostly. There is still 
 #### Known Bugs:
 
 Map Points and KeyFrames seem are not deleted from Map but only marked as `bad` instead. So there will be more and more useless data structure residing inside memory and Map size will keep growing.
+
+# 12. ROS Friendly interface
+Here ROS node to process live monocular, stereo or RGB-D streams are provided. The nodes publish the estimated pose as a nav_msgs.Odom message. The core library can be compiled without ROS.
+
+Every node output the estimated pose on the topic /orb_slam/odom.
